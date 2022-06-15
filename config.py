@@ -26,7 +26,7 @@ device = torch.device("cuda", 0)
 # Turning on when the image size does not change during training can speed up training
 cudnn.benchmark = True
 # character file path
-chars_file = "./data/MJSynth/chars.txt"
+chars_dict_path = "./data/MJSynth/chars.txt"
 # Model parameter configuration
 model_image_width = 256
 model_image_height = 32
