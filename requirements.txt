@@ -1,0 +1,4 @@
+opencv-python
+natsort
+numpy
+torch
