@@ -26,7 +26,7 @@ from model import FAN
 
 def main(args):
     # Generate image labels and model class counts
-    chars_list, chars_dict = chars_convert(config.chars_file)
+    chars_list, chars_dict = chars_convert(config.chars_dict_path)
     num_classes = len(chars_dict)
 
     # Initialize the model

@@ -68,7 +68,7 @@ def main() -> None:
     total_correct = 0
 
     # Generate image labels and model class counts
-    chars_list, chars_dict = chars_convert(config.chars_file)
+    chars_list, chars_dict = chars_convert(config.chars_dict_path)
     num_classes = len(chars_dict)
 
     # Initialize model

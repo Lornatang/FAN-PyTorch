@@ -1,26 +1,25 @@
-# CRNN-PyTorch
+# FAN-PyTorch
 
 ## Overview
 
 This repository contains an op-for-op PyTorch reimplementation
-of [An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition](https://arxiv.org/abs/1507.05717)
-.
+of [Focusing Attention: Towards Accurate Text Recognition in Natural Images](https://arxiv.org/abs/1709.02054v3).
 
 ## Table of contents
 
-- [CRNN-PyTorch](#crnn-pytorch)
-  - [Overview](#overview)
-  - [Table of contents](#table-of-contents)
-  - [Download weights](#download-weights)
-  - [Download datasets](#download-datasets)
-  - [How Test and Train](#how-test-and-train)
-    - [Test](#test)
-    - [Train CRNN model](#train-crnn-model)
-    - [Resume train CRNN model](#resume-train-crnn-model)
-  - [Result](#result)
-  - [Contributing](#contributing)
-  - [Credit](#credit)
-    - [An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition](#an-end-to-end-trainable-neural-network-for-image-based-sequence-recognition-and-its-application-to-scene-text-recognition)
+- [FAN-PyTorch](#fan-pytorch)
+    - [Overview](#overview)
+    - [Table of contents](#table-of-contents)
+    - [Download weights](#download-weights)
+    - [Download datasets](#download-datasets)
+    - [How Test and Train](#how-test-and-train)
+        - [Test](#test)
+        - [Train CRNN model](#train-crnn-model)
+        - [Resume train CRNN model](#resume-train-crnn-model)
+    - [Result](#result)
+    - [Contributing](#contributing)
+    - [Credit](#credit)
+        - [Focusing Attention: Towards Accurate Text Recognition in Natural Images](#focusing-attention-towards-accurate-text-recognition-in-natural-images)
 
 ## Download weights
 
@@ -42,35 +41,38 @@ Both training and testing only need to modify the `config.py` file.
 
 ### Test
 
-- line 40: `mode` change to `test`.
-- line 79: `model_path` change to `results/pretrained_models/CRNN-MJSynth-e9341ede.pth.tar`.
+- line 29: `chars_dict_path` change to `./data/MJSynth/chars.txt`.
+- line 39: `mode` change to `test`.
+- line 81: `model_path` change to `results/pretrained_models/FAN-MJSynth-e9341ede.pth.tar`.
 
 ### Train CRNN model
 
-- line 40: `mode` change to `train`.
-- line 42: `exp_name` change to `CRNN_MJSynth`.
+- line 29: `chars_dict_path` change to `./data/MJSynth/chars.txt`.
+- line 39: `mode` change to `train`.
+- line 41: `exp_name` change to `FAN_MJSynth`.
 
 ### Resume train CRNN model
 
+- line 29: `chars_dict_path` change to `./data/MJSynth/chars.txt`.
 - line 40: `mode` change to `train`.
-- line 42: `exp_name` change to `CRNN_MJSynth`.
-- line 56: `resume` change to `samples/CRNN_MJSynth/epoch_xxx.pth.tar`.
+- line 41: `exp_name` change to `FAN_MJSynth`.
+- line 55: `resume` change to `samples/FAN_MJSynth/epoch_xxx.pth.tar`.
 
 ## Result
 
-Source of original paper results: [https://arxiv.org/pdf/1507.05717.pdf](https://arxiv.org/pdf/1507.05717.pdf)
+Source of original paper results: [https://arxiv.org/pdf/1709.02054v3.pdf](https://arxiv.org/pdf/1709.02054v3.pdf)
 
 In the following table, `-` indicates show no test.
 
-|    Model    | IIIT5K(None) | SVT(None) | IC03(None) | IC13(None) |
-|:-----------:|:------------:|:---------:|:----------:|:----------:|
-| CRNN(paper) |     78.2     |   80.8    |    89.4    |    86.7    |
-| CRNN(repo)  |   **81.5**   | **80.1**  |   **-**    |   **-**    |
+|   Model    | IIIT5K (None) | SVT (None) | IC03 (None) | IC13 (None) | IC15 (None) |
+|:----------:|:-------------:|:----------:|:-----------:|:-----------:|:-----------:|
+| FAN(paper) |    87.4.2     |    85.9    |    94.2     |    93.3     |    70.6     |
+| FAN(repo)  |     **-**     |   **-**    |    **-**    |    **-**    |    **-**    |
 
 ```bash
-# Download `CRNN-Synth90k-e9341ede.pth.tar` weights to `./results/pretrained_models`
+# Download `FAN-MJSynth-e9341ede.pth.tar` weights to `./results/pretrained_models`
 # More detail see `README.md<Download weights>`
-python predict.py --image_path ./figures/Available.png --weights_path ./results/pretrained_models/CRNN-MJSynth-e9341ede.pth.tar
+python predict.py --image_path ./figures/Available.png --weights_path ./results/pretrained_models/FAN-MJSynth-e9341ede.pth.tar
 ```
 
 Input: <span align="center"><img src="figures/Available.png"/></span>
@@ -78,8 +80,8 @@ Input: <span align="center"><img src="figures/Available.png"/></span>
 Output:
 
 ```text
-Build CRNN model successfully.
-Load CRNN model weights `./results/pretrained_models/CRNN-MJSynth-e9341ede.pth.tar` successfully.
+Build FAN model successfully.
+Load FAN model weights `./results/pretrained_models/FAN-MJSynth-e9341ede.pth.tar` successfully.
 ``./figures/Available.png` -> `available`
 ```
 
@@ -92,38 +94,44 @@ I look forward to seeing what the community does with these models!
 
 ## Credit
 
-### An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition
+### Focusing Attention: Towards Accurate Text Recognition in Natural Images
 
-_Baoguang Shi, Xiang Bai, Cong Yao_ <br>
+_Zhanzhan Cheng, Fan Bai, Yunlu Xu, Gang Zheng, Shiliang Pu, Shuigeng Zhou_ <br>
 
 **Abstract** <br>
-Image-based sequence recognition has been a long-standing research topic in computer vision. In this paper, we
-investigate the problem of scene text recognition, which is among the most important and challenging tasks in
-image-based sequence recognition. A novel neural network architecture, which integrates feature extraction, sequence
-modeling and transcription into a unified framework, is proposed. Compared with previous systems for scene text
-recognition, the proposed architecture possesses four distinctive properties: (1) It is end-to-end trainable, in
-contrast to most of the existing algorithms whose components are separately trained and tuned. (2) It naturally handles
-sequences in arbitrary lengths, involving no character segmentation or horizontal scale normalization. (3) It is not
-confined to any predefined lexicon and achieves remarkable performances in both lexicon-free and lexicon-based scene
-text recognition tasks. (4) It generates an effective yet much smaller model, which is more practical for real-world
-application scenarios. The experiments on standard benchmarks, including the IIIT-5K, Street View Text and ICDAR
-datasets, demonstrate the superiority of the proposed algorithm over the prior arts. Moreover, the proposed algorithm
-performs well in the task of image-based music score recognition, which evidently verifies the generality of it.
+Scene text recognition has been a hot research topic in computer vision due to its various applications. The state of
+the art is the attention-based encoder-decoder framework that learns the mapping between input images and output
+sequences in a purely data-driven way. However, we observe that existing attention-based methods perform poorly on
+complicated and/or low-quality images. One major reason is that existing methods cannot get accurate alignments between
+feature areas and targets for such images. We call this phenomenon "attention drift". To tackle this problem, in this
+paper we propose the FAN (the abbreviation of Focusing Attention Network) method that employs a focusing attention
+mechanism to automatically draw back the drifted attention. FAN consists of two major components: an attention network (
+AN) that is responsible for recognizing character targets as in the existing methods, and a focusing network (FN) that
+is responsible for adjusting attention by evaluating whether AN pays attention properly on the target areas in the
+images. Furthermore, different from the existing methods, we adopt a ResNet-based network to enrich deep representations
+of scene text images. Extensive experiments on various benchmarks, including the IIIT5k, SVT and ICDAR datasets, show
+that the FAN method substantially outperforms the existing methods.
 
-[[Paper]](https://arxiv.org/pdf/1507.05717) [[Code(Lua)]](https://github.com/bgshih/crnn)
+[[Paper]](https://arxiv.org/pdf/1709.02054v3)
 
 ```bibtex
-@article{ShiBY17,
-  author    = {Baoguang Shi and
-               Xiang Bai and
-               Cong Yao},
-  title     = {An End-to-End Trainable Neural Network for Image-Based Sequence Recognition
-               and Its Application to Scene Text Recognition},
-  journal   = {{IEEE} Trans. Pattern Anal. Mach. Intell.},
-  volume    = {39},
-  number    = {11},
-  pages     = {2298--2304},
-  year      = {2017}
+@article{DBLP:journals/corr/abs-1709-02054,
+  author    = {Zhanzhan Cheng and
+               Fan Bai and
+               Yunlu Xu and
+               Gang Zheng and
+               Shiliang Pu and
+               Shuigeng Zhou},
+  title     = {Focusing Attention: Towards Accurate Text Recognition in Natural Images},
+  journal   = {CoRR},
+  volume    = {abs/1709.02054},
+  year      = {2017},
+  url       = {http://arxiv.org/abs/1709.02054},
+  eprinttype = {arXiv},
+  eprint    = {1709.02054},
+  timestamp = {Fri, 13 Aug 2021 07:43:49 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1709-02054.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
 }
 ```
 
